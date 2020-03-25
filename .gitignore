@@ -1,0 +1,10 @@
+*
+!.gitignore
+
+!src/
+!src/*
+!src/*/*
+!src/*/*/*
+!WebContent/
+!WebContent/*
+src/despairify/dal/ConnectionManager.java
