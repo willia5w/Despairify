@@ -1,5 +1,20 @@
 package despairify.servlet;
 
+import despairify.dal.*;
+import despairify.model.*;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
 @WebServlet("/countrycreate")
 public class CountryCreate extends HttpServlet {
 
@@ -33,7 +48,7 @@ public class CountryCreate extends HttpServlet {
             messages.put("success", "Invalid country code");
         } else {
             try {
-                String countryName = req.getParameter("countryname")
+                String countryName = req.getParameter("countryname");
                 Countries country = new Countries(countryCode, countryName);
                 country = countriesDao.create(country);
                 messages.put("success", "Successfully created " + countryCode);

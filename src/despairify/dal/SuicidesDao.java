@@ -63,7 +63,6 @@ public class SuicidesDao {
 				throw new SQLException("Unable to retrieve auto-generated key.");
 			}
 			suicide.setSuicideId(suicideId);
-			System.out.println("here's the suicide " + suicide.getSuicideId());
 			
 			return this.insertIntoSuicides(suicide);
 

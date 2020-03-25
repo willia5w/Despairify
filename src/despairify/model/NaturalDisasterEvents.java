@@ -28,6 +28,20 @@ public class NaturalDisasterEvents {
         this.damageUSD = damageUSD;
         this.disasterType = disasterType;
     }
+    
+    public NaturalDisasterEvents(String countryAlpha3Code, int totalDeaths,
+            int injured,
+            int affected, int homeless, int damageUSD,
+            DisasterType disasterType) {
+            this.countryAlpha3Code = countryAlpha3Code;
+            this.totalDeaths = totalDeaths;
+            this.injured = injured;
+            this.affected = affected;
+            this.homeless = homeless;
+            this.damageUSD = damageUSD;
+            this.disasterType = disasterType;
+        }
+
 
     public int getEventId() {
         return eventId;

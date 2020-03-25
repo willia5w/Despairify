@@ -24,7 +24,7 @@ public class CountriesDao {
     }
 
     public Countries create(Countries country) throws SQLException {
-        String insertCountry = "INSERT INTO Countries(Country) VALUES(?, ?);";
+        String insertCountry = "INSERT INTO Countries(CountryAlpha3Code,CountryName) VALUES(?, ?);";
         Connection connection = null;
         PreparedStatement insertStmt = null;
         try {
