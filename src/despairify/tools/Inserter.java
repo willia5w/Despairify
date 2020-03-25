@@ -79,8 +79,21 @@ public class Inserter {
 		}
 		
 		suicidesDao.delete(suicide);
-		
 
+		// Countries Test
+		CountriesDao countriesDao = CountriesDao.getInstance();
+
+		Countries country = new Countries("USA", "United States");
+
+		Countries returnedCountry = countriesDao.getCountryByAlpha3Code("USA");
+		System.out.format("Reading Countries a3c:%s name:%s\n",
+			returnedCountry.getCountryAlpha3Code(), returnedCountry.getCountryName());
+
+		Countries updatedCountry = countriesDao.updateCountryName(country, "United States of America");
+		System.out.format("Reading Updated Countries a3c:%s name:%s\n",
+			updatedCountry.getCountryAlpha3Code(), updatedCountry.getCountryName());
+
+		countriesDao.delete(country);
 		
 		
 		

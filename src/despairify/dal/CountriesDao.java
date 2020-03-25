@@ -49,7 +49,7 @@ public class CountriesDao {
     }
 
     public Countries getCountryByAlpha3Code(String alpha3Code) throws SQLException {
-        String selectCountry = "SELECT * FROM Countries WHERE Alpha3Code=?;";
+        String selectCountry = "SELECT * FROM Countries WHERE CountryAlpha3Code=?;";
         Connection connection = null;
         PreparedStatement selectStmt = null;
         ResultSet results = null;
@@ -61,7 +61,7 @@ public class CountriesDao {
             results = selectStmt.executeQuery();
 
             if(results.next()) {
-                String resultAlpha3Code = results.getString("Alpha3Code");
+                String resultAlpha3Code = results.getString("CountryAlpha3Code");
                 String resultCountryName = results.getString("CountryName");
 
                 Countries country = new Countries(resultAlpha3Code, resultCountryName);
@@ -82,5 +82,60 @@ public class CountriesDao {
             }
         }
         return null;
+    }
+
+    public Countries updateCountryName(Countries country, String newCountryName) throws SQLException {
+        String updateAgeRange = "UPDATE Countries SET CountryName=? WHERE CountryAlpha3Code=?;";
+        Connection connection = null;
+        PreparedStatement updateStmt = null;
+        try {
+            connection = connectionManager.getConnection();
+            updateStmt = connection.prepareStatement(updateAgeRange);
+
+            updateStmt.setString(1, newCountryName);
+            updateStmt.setString(2, country.getCountryAlpha3Code());
+
+            updateStmt.executeUpdate();
+
+            country.setCountryName(newCountryName);
+
+            return country;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if(connection != null) {
+                connection.close();
+            }
+            if(updateStmt != null) {
+                updateStmt.close();
+            }
+        }
+    }
+
+    public Countries delete(Countries country) throws SQLException {
+        String deleteCountry = "DELETE FROM Countries WHERE CountryAlpha3Code=?;";
+        Connection connection = null;
+        PreparedStatement deleteStmt = null;
+        try {
+            connection = connectionManager.getConnection();
+            deleteStmt = connection.prepareStatement(deleteCountry);
+
+            deleteStmt.setString(1, country.getCountryAlpha3Code());
+            deleteStmt.executeUpdate();
+
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if(connection != null) {
+                connection.close();
+            }
+            if(deleteStmt != null) {
+                deleteStmt.close();
+            }
+        }
     }
 }

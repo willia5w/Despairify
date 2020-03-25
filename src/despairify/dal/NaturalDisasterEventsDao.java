@@ -110,4 +110,59 @@ public class NaturalDisasterEventsDao {
         }
         return null;
     }
+
+    public NaturalDisasterEvents updateTotalDeaths(NaturalDisasterEvents event, int newTotalDeaths) throws SQLException {
+        String updateEvent = "UPDATE NaturalDisasterEvents SET TotalDeaths=? WHERE EventId=?;";
+        Connection connection = null;
+        PreparedStatement updateStmt = null;
+        try {
+            connection = connectionManager.getConnection();
+            updateStmt = connection.prepareStatement(updateEvent);
+
+            updateStmt.setInt(1, newTotalDeaths);
+            updateStmt.setInt(2, event.getEventId());
+
+            updateStmt.executeUpdate();
+
+            event.setTotalDeaths(newTotalDeaths);
+
+            return event;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if(connection != null) {
+                connection.close();
+            }
+            if(updateStmt != null) {
+                updateStmt.close();
+            }
+        }
+    }
+
+    public NaturalDisasterEvents delete(NaturalDisasterEvents event) throws SQLException {
+        String deleteEvent = "DELETE FROM NaturalDisasterEvents WHERE EventId=?;";
+        Connection connection = null;
+        PreparedStatement deleteStmt = null;
+        try {
+            connection = connectionManager.getConnection();
+            deleteStmt = connection.prepareStatement(deleteEvent);
+
+            deleteStmt.setInt(1, event.getEventId());
+            deleteStmt.executeUpdate();
+
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if(connection != null) {
+                connection.close();
+            }
+            if(deleteStmt != null) {
+                deleteStmt.close();
+            }
+        }
+    }
 }
