@@ -17,7 +17,7 @@ public class CountryCreate extends HttpServlet {
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
         //Just render the JSP.
-        req.getRequestDispatcher("/CountryCreate.jsp").forward(req, resp);
+        req.getRequestDispatcher("/Country.jsp").forward(req, resp);
     }
 
     @Override
@@ -42,6 +42,6 @@ public class CountryCreate extends HttpServlet {
                 throw new IOException(e);
             }
         }
-        req.getRequestDispatcher("/CountryCreate.jsp").forward(req, resp);
+        req.getRequestDispatcher("/Country.jsp").forward(req, resp);
     }
 }
