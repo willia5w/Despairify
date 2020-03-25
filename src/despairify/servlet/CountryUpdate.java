@@ -51,7 +51,7 @@ public class CountryUpdate extends HttpServlet {
             }
         }
 
-        req.getRequestDispatcher("/CountryUpdate.jsp").forward(req, resp);
+        req.getRequestDispatcher("/Country.jsp").forward(req, resp);
     }
 
     @Override
@@ -72,12 +72,12 @@ public class CountryUpdate extends HttpServlet {
                 if(country == null) {
                     messages.put("success", "Country does not exist.");
                 } else {
-                    String newCountryName = req.getParameter("newCountryName");
+                    String newCountryName = req.getParameter("newcountryname");
                     if (newCountryName == null || newCountryName.trim().isEmpty()) {
-                        messages.put("success", "Please enter a valid country name")
+                        messages.put("success", "Please enter a valid country name");
                     } else {
                         country = countriesDao.updateCountryName(country, newCountryName);
-                        messages.put("success", "Successfully updated country with code " + country.getAlpha3Code());
+                        messages.put("success", "Successfully updated country with code " + country.getCountryAlpha3Code());
                     }
                 }
             } catch (SQLException e) {
@@ -86,6 +86,6 @@ public class CountryUpdate extends HttpServlet {
             }
         }
 
-        req.getRequestDispatcher("/CountryUpdate.jsp").forward(req, resp);
+        req.getRequestDispatcher("/Country.jsp").forward(req, resp);
     }
 }

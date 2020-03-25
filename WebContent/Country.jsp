@@ -35,7 +35,7 @@
 <form action="countrydelete" method="post">
     <p>
     <div <c:if test="${messages.disableSubmit}">style="display:none"</c:if>>
-        <label for="countryalpha3codedelete">AgeRangeId</label>
+        <label for="countryalpha3codedelete">CountryAlpha3Code</label>
         <input id="countryalpha3codedelete" name="countryalpha3code" value="${fn:escapeXml(param.countryalpha3code)}">
     </div>
     </p>
@@ -48,7 +48,7 @@
 <br/><br/>
 
 <h1>Update Country</h1>
-<form action="countryalpha3code" method="post">
+<form action="countryupdate" method="post">
     <p>
         <label for="countryalpha3codeupdate">CountryAlpha3Code</label>
         <input id="countryalpha3codeupdate" name="countryalpha3code" value="${fn:escapeXml(param.countryalpha3code)}">

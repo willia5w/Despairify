@@ -34,7 +34,7 @@ public class FindCountries extends HttpServlet {
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
 
-        List<AgeRanges> countries = new ArrayList<Countries>();
+        List<Countries> countries = new ArrayList<Countries>();
 
         String countryalpha3code = req.getParameter("countryalpha3code");
 
@@ -42,7 +42,7 @@ public class FindCountries extends HttpServlet {
             messages.put("success", "Please enter a valid country code.");
         } else {
             try {
-                Countries returnedCountry = countriesDao.getCountryByAlpha3Code(countryAlpha3Code);
+                Countries returnedCountry = countriesDao.getCountryByAlpha3Code(countryalpha3code);
                 countries.add(returnedCountry);
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -66,7 +66,7 @@ public class FindCountries extends HttpServlet {
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
 
-        List<AgeRanges> countries = new ArrayList<Countries>();
+        List<Countries> countries = new ArrayList<Countries>();
 
         String countryalpha3code = req.getParameter("countryalpha3code");
         if (countryalpha3code == null || countryalpha3code.trim().isEmpty()) {
@@ -74,7 +74,7 @@ public class FindCountries extends HttpServlet {
         } else {
 
             try {
-                Countries returnedCountry = countriesDao.getCountryByAlpha3Code(countryAlpha3Code);
+                Countries returnedCountry = countriesDao.getCountryByAlpha3Code(countryalpha3code);
                 if (returnedCountry != null) {
                     countries.add(returnedCountry);
                 }

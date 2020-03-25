@@ -33,7 +33,7 @@ public class CountryDelete extends HttpServlet {
         req.setAttribute("messages", messages);
         // Provide a title and render the JSP.
         messages.put("title", "Delete Country");
-        req.getRequestDispatcher("/CountryDelete.jsp").forward(req, resp);
+        req.getRequestDispatcher("/Country.jsp").forward(req, resp);
     }
 
     @Override
@@ -66,6 +66,6 @@ public class CountryDelete extends HttpServlet {
             }
         }
 
-        req.getRequestDispatcher("/CountryDelete.jsp").forward(req, resp);
+        req.getRequestDispatcher("/Country.jsp").forward(req, resp);
     }
 }
