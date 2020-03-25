@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/countrycreate")
-public class CountryCreate extends HttpServlet {
+@WebServlet("/countrydelete")
+public class CountryDelete extends HttpServlet {
 
     protected CountriesDao countriesDao;
 
@@ -31,8 +31,9 @@ public class CountryCreate extends HttpServlet {
         // Map for storing messages.
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
-        //Just render the JSP.
-        req.getRequestDispatcher("/Country.jsp").forward(req, resp);
+        // Provide a title and render the JSP.
+        messages.put("title", "Delete Country");
+        req.getRequestDispatcher("/CountryDelete.jsp").forward(req, resp);
     }
 
     @Override
@@ -43,20 +44,28 @@ public class CountryCreate extends HttpServlet {
         req.setAttribute("messages", messages);
 
         // Retrieve and validate name.
-        String countryCode = req.getParameter("countryalpha3code");
-        if (countryCode == null || countryCode.trim().isEmpty()) {
-            messages.put("success", "Invalid country code");
+        String countryalpha3code = req.getParameter("countryalpha3code");
+        if (countryalpha3code == null || countryalpha3code.trim().isEmpty()) {
+            messages.put("title", "Invalid Country");
+            messages.put("disableSubmit", "true");
         } else {
             try {
-                String countryName = req.getParameter("countryname");
-                Countries country = new Countries(countryCode, countryName);
-                country = countriesDao.create(country);
-                messages.put("success", "Successfully created " + countryCode);
+                Countries country = countriesDao.getCountryByAlpha3Code(countryalpha3code);
+                country = countriesDao.delete(country);
+                // Update the message.
+                if (country == null) {
+                    messages.put("title", "Successfully deleted " + countryalpha3code);
+                    messages.put("disableSubmit", "true");
+                } else {
+                    messages.put("title", "Failed to delete " + countryalpha3code);
+                    messages.put("disableSubmit", "false");
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
                 throw new IOException(e);
             }
         }
-        req.getRequestDispatcher("/Country.jsp").forward(req, resp);
+
+        req.getRequestDispatcher("/CountryDelete.jsp").forward(req, resp);
     }
 }
